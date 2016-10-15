@@ -24,7 +24,7 @@ public class RandomStack {
 
         for (int i = 0; i < n; i++) {
             int num = rand.nextInt(MAX);
-            if (num >= 0) {
+            if (num > 0) {
                 values.push(new Term(num, 0));
             } else {
                 values.push(new Term(1, 1));
