@@ -42,8 +42,7 @@
         android:layout_above="@id/left_bar"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/anchor"
-        android:text="topleft" />
+        android:layout_toLeftOf="@id/anchor"/>
 
     <TextView
         android:id="@+id/left_denominator"
@@ -51,8 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/left_bar"
-        android:layout_toLeftOf="@id/anchor"
-        android:text="botleft" />
+        android:layout_toLeftOf="@id/anchor"/>
 
     <View
         android:id="@+id/right_bar"
@@ -67,8 +65,7 @@
         android:layout_above="@id/right_bar"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/anchor"
-        android:text="topright" />
+        android:layout_toRightOf="@id/anchor"/>
 
     <TextView
         android:id="@+id/right_denominator"
@@ -76,8 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/right_bar"
-        android:layout_toRightOf="@id/anchor"
-        android:text="botright" />
+        android:layout_toRightOf="@id/anchor"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -92,8 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="undef" />
+        android:layout_centerHorizontal="true"/>
 
     <ImageButton
         android:layout_width="wrap_content"

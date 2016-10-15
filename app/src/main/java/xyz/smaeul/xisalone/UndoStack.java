@@ -9,8 +9,8 @@ import xyz.smaeul.xisalone.expression.Term;
  */
 
 public class UndoStack {
-    private Stack<Term> undoValues;
-    private Stack<Operator> undoOperations;
+    private final Stack<Term> undoValues;
+    private final Stack<Operator> undoOperations;
 
     public UndoStack() {
         undoValues = new Stack<>();

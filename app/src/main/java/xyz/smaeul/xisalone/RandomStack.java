@@ -11,11 +11,11 @@ import xyz.smaeul.xisalone.expression.Term;
  */
 
 public class RandomStack {
-    private static int MAX = 20;
+    private final static int MAX = 20;
 
-    private Random rand;
-    private Stack<Term> values;
-    private Stack<Operator> operators;
+    private final Random rand;
+    private final Stack<Term> values;
+    private final Stack<Operator> operators;
 
     public RandomStack(int n) {
         rand = new Random();

@@ -6,25 +6,34 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Stack;
 
 import xyz.smaeul.xisalone.expression.Expression;
+import xyz.smaeul.xisalone.expression.Polynomial;
 import xyz.smaeul.xisalone.expression.Term;
 
 public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     // Number of operations to perform that the user must undo
-    private static final int steps = 4;
+    private static final int steps = 10;
     // Radius size for circle in pixels: motion outside of this circle is considered input
     private static final float radius = 100f;
 
     private final TouchListener touchListener = new TouchListener(this, radius);
+
+    private LinearLayout numberStack;
+    private Expression leftSide;
+    private Expression rightSide;
+    private RandomStack randomStack;
+    private UndoStack undoStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.activity_main).setOnTouchListener(touchListener);
+        numberStack = (LinearLayout) findViewById(R.id.number_stack);
         startGame();
     }
 
@@ -75,34 +84,87 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     }
 
     public void runGameStep(Operator operator) {
-
+        TextView stackView = (TextView) numberStack.getChildAt(0);
+        Term term = randomStack.getValues().pop();
+        numberStack.removeViewAt(0);
+        switch (operator) {
+            case ADD:
+                leftSide.add(term);
+                rightSide.add(term);
+                break;
+            case SUBTRACT:
+                leftSide.subtract(term);
+                rightSide.subtract(term);
+                break;
+            case MULTIPLY:
+                leftSide.multiply(term);
+                rightSide.multiply(term);
+                break;
+            case DIVIDE:
+                leftSide.divide(term);
+                rightSide.divide(term);
+                break;
+        }
+        updateDisplay();
+        if (numberStack.getChildCount() == 0) {
+            startGame();
+        } else {
+            numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        }
     }
 
     public void showPreview(Operator operator) {
-        final TextView text = (TextView) findViewById(R.id.operation);
-        text.setText(operator.toString());
+
     }
 
     public void startGame() {
-        LinearLayout stack = (LinearLayout) findViewById(R.id.number_stack);
-        Random r = new Random();
-        for (int i = 0; i < steps; ++i) {
-            TextView tv = new TextView(this);
-            tv.setPadding(8, 0, 8, 0);
-            tv.setText(new Integer(r.nextInt(20)).toString());
-            stack.addView(tv);
+        leftSide = new Expression(new Polynomial(new Term(1, 1)));
+        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10), 0)));
+        randomStack = new RandomStack(steps);
+        undoStack = new UndoStack();
+
+        LinearLayout numberStack = (LinearLayout) findViewById(R.id.number_stack);
+        Iterator<Operator> operatorIterator = randomStack.getOperators().iterator();
+        Iterator<Term> termIterator = randomStack.getValues().iterator();
+
+        // Run the algebra simulation forwards
+        while (operatorIterator.hasNext()) {
+            Operator operator = operatorIterator.next();
+            Term term = termIterator.next();
+            switch (operator) {
+                case ADD:
+                    leftSide.add(term);
+                    rightSide.add(term);
+                    break;
+                case SUBTRACT:
+                    leftSide.subtract(term);
+                    rightSide.subtract(term);
+                    break;
+                case MULTIPLY:
+                    leftSide.multiply(term);
+                    rightSide.multiply(term);
+                    break;
+                case DIVIDE:
+                    leftSide.divide(term);
+                    rightSide.divide(term);
+                    break;
+            }
+            TextView textView = new TextView(this);
+            textView.setPadding(16, 0, 16, 0);
+            textView.setText(new Polynomial(term).toHTML());
+            numberStack.addView(textView, 0);
         }
+        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        updateDisplay();
     }
 
     public void undo(View v) {
 
     }
 
-    public void checkWin(Stack<Operator> operators, Stack<Term> terms, Expression left, Expression right){
-
-
-        if(left.getDenominator().getNumberOfTerms() * left.getNumerator().getNumberOfTerms() *
-                right.getDenominator().getNumberOfTerms() * right.getNumerator().getNumberOfTerms() > 0){
+    public void checkWin(Stack<Operator> operators, Stack<Term> terms, Expression left, Expression right) {
+        if (left.getDenominator().getNumberOfTerms() * left.getNumerator().getNumberOfTerms() *
+                right.getDenominator().getNumberOfTerms() * right.getNumerator().getNumberOfTerms() > 0) {
 
             Term leftFirstNumerator = left.getNumerator().getTerms().getFirst();
             Term leftFirstDenominator = left.getDenominator().getTerms().getFirst();
@@ -121,14 +183,16 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
 
             boolean rightiIs1 = right.getNumerator().getNumberOfTerms() * rightFirstNumerator.getCoefficient() + rightFirstNumerator.getExponent() == 1;
 
-            if(oneDenominators && donePlaying && leftIsX && rightiIs1){
-
+            if (oneDenominators && donePlaying && leftIsX && rightiIs1) {
                 //win
                 return;
             }
-
             //lose
         }
         //lose
+    }
+
+    private void updateDisplay() {
+
     }
 }

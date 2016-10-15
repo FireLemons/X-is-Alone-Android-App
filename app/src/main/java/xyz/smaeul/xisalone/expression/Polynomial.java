@@ -15,6 +15,11 @@ public class Polynomial {
         terms = new LinkedList<>();
     }
 
+    public Polynomial(Term t) {
+        this();
+        terms.add(t);
+    }
+
     public void add(Term t) {
         for (Term term : terms) {
             if (term.exponent == t.exponent) {
@@ -54,15 +59,15 @@ public class Polynomial {
         // Array for term index sorted in reverse order by exponent
         int listSize = terms.size();
         int[] list = new int[listSize];
-        for(int i = 0; i < listSize; i++){
+        for (int i = 0; i < listSize; i++) {
             list[i] = i;
         }
         // Sort by exponent; Bubble sort
         boolean listChanged = true;
-        while(listChanged == true){
+        while (listChanged == true) {
             listChanged = false;
-            for(int i = 0; i < (listSize - 1); i++){
-                if((terms.get(list[i])).getExponent() < (terms.get(list[i + 1])).getExponent()){
+            for (int i = 0; i < (listSize - 1); i++) {
+                if ((terms.get(list[i])).getExponent() < (terms.get(list[i + 1])).getExponent()) {
                     listChanged = true;
                     int temp = list[i];
                     list[i] = list[i + 1];
@@ -72,56 +77,27 @@ public class Polynomial {
         }
         // Create HTML
         String output = new String();
-        for(int i = 0; i < listSize; i++){
-            if(terms.get(list[i]).getCoefficient() > 0 && i == 0){
-                output = output.concat("" + terms.get(list[i]).getCoefficient());
-                if(terms.get(list[i]).getExponent() > 0) {
-                    output = output.concat("x");
-                }
-                if(terms.get(list[i]).getExponent() > 1) {
-                    output = output.concat("<sup>" + terms.get(list[i]).getExponent() + "</sup> ");
-                }
-                else {
-                    output = output.concat(" ");
-                }
+        for (int i = 0; i < listSize; i++) {
+            int coefficient = terms.get(list[i]).getCoefficient();
+            int exponent = terms.get(list[i]).getExponent();
+
+            if (i > 0 && coefficient > 0) {
+                output = output.concat("+");
             }
-            else if(terms.get(list[i]).getCoefficient() < 0 && i == 0){
-                output = output.concat("-" + Math.abs(terms.get(list[i]).getCoefficient()));
-                if(terms.get(list[i]).getExponent() > 0) {
-                    output = output.concat("x");
-                }
-                if(terms.get(list[i]).getExponent() > 1) {
-                    output = output.concat("<sup>" + terms.get(list[i]).getExponent() + "</sup> ");
-                }
-                else {
-                    output = output.concat(" ");
-                }
+            if (coefficient > 1 || coefficient < -1) {
+                output = output.concat(Integer.valueOf(coefficient).toString());
+            } else if (coefficient == -1) {
+                output = output.concat("-");
+            } else if (coefficient == 1 && exponent == 0) {
+                output = output.concat("1");
             }
-            else if(terms.get(list[i]).getCoefficient() > 0){
-                output = output.concat("+ " + terms.get(list[i]).getCoefficient());
-                if(terms.get(list[i]).getExponent() > 0) {
-                    output = output.concat("x");
-                }
-                if(terms.get(list[i]).getExponent() > 1) {
-                    output = output.concat("<sup>" + terms.get(list[i]).getExponent() + "</sup> ");
-                }
-                else {
-                    output = output.concat(" ");
-                }
+            if (exponent > 0) {
+                output = output.concat("x");
             }
-            else if(terms.get(list[i]).getCoefficient() < 0){
-                output = output.concat("- " + Math.abs(terms.get(list[i]).getCoefficient()));
-                if(terms.get(list[i]).getExponent() > 0) {
-                    output = output.concat("x");
-                }
-                if(terms.get(list[i]).getExponent() > 1) {
-                    output = output.concat("<sup>" + terms.get(list[i]).getExponent() + "</sup> ");
-                }
-                else {
-                    output = output.concat(" ");
-                }
+            if (exponent > 1) {
+                output = output.concat("<sup>" + exponent + "</sup> ");
             }
         }
-        return(output);
+        return (output);
     }
 }

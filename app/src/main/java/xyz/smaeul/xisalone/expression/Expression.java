@@ -10,9 +10,7 @@ public class Expression {
     private Polynomial denominator;
 
     public Expression() {
-        numerator = new Polynomial();
-        denominator = new Polynomial();
-        denominator.add(new Term(1, 0));
+        this(new Polynomial());
     }
 
     public Expression(Polynomial numerator) {

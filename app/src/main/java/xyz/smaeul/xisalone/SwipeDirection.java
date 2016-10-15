@@ -9,5 +9,5 @@ public enum SwipeDirection {
     LEFT,
     RIGHT,
     UP,
-    DOWN;
+    DOWN
 }
