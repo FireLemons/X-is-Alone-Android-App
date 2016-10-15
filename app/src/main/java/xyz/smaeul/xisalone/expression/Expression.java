@@ -21,11 +21,11 @@ public class Expression {
         denominator.add(new Term(1, 0));
     }
 
-    public Polynomial getDenominator(){
+    public Polynomial getDenominator() {
         return denominator;
     }
 
-    public Polynomial getNumerator(){
+    public Polynomial getNumerator() {
         return numerator;
     }
 

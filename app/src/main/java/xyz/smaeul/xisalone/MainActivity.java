@@ -6,11 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.LinkedList;
 import java.util.Random;
-import xyz.smaeul.xisalone.expression.*;
-
-import xyz.smaeul.xisalone.expression.Expression;
 
 public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     // Number of operations to perform that the user must undo
