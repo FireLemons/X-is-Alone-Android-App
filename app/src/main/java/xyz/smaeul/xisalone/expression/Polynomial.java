@@ -16,20 +16,16 @@ public class Polynomial {
     }
 
     public void add(Term t) {
-        boolean found = false;
         for (Term term : terms) {
             if (term.exponent == t.exponent) {
                 term.coefficient += t.coefficient;
                 if (term.coefficient == 0) {
                     terms.remove(term);
                 }
-                found = true;
-                break;
+                return;
             }
         }
-        if (found == false) {
-            terms.add(t);
-        }
+        terms.add(t);
     }
 
     public int getNumberOfTerms() {

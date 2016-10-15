@@ -3,12 +3,15 @@ package xyz.smaeul.xisalone;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.Random;
+import xyz.smaeul.xisalone.expression.*;
 
 import xyz.smaeul.xisalone.expression.Expression;
 
@@ -33,9 +36,20 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView text = (TextView) findViewById(R.id.operation);
 
-        Expression e = new Expression();
+        Polynomial numerator = new Polynomial();
 
-        /*final View view = findViewById(R.id.activity_main);
+        numerator.add(new Term(4, 2));
+        numerator.add(new Term(8, 4));
+
+        Expression e = new Expression(numerator);
+
+        LinkedList<Term> denominator= new LinkedList<Term>();
+
+        e.divide(new Term(-4, 2));
+
+        Log.d("###########", Integer.toString(e.getNumerator().getTerms().getFirst().getCoefficient()) + " " + Integer.toString(e.getNumerator().getTerms().getFirst().getExponent()));
+
+        final View view = findViewById(R.id.activity_main);
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -99,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startGame();*/
+        startGame();
     }
 
     public void options(View v) {

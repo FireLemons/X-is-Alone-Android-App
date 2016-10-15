@@ -1,5 +1,7 @@
 package xyz.smaeul.xisalone.expression;
 
+import android.util.Log;
+
 /**
  * Created by Madi on 10/14/16.
  */
@@ -12,11 +14,13 @@ public class Expression {
     public Expression() {
         numerator = new Polynomial();
         denominator = new Polynomial();
+        denominator.add(new Term(1, 0));
     }
 
     public Expression(Polynomial numerator) {
         this.numerator = numerator;
         denominator = new Polynomial();
+        denominator.add(new Term(1, 0));
     }
 
     public Polynomial getNumerator(){
@@ -30,7 +34,12 @@ public class Expression {
     }
 
     public void add(Term t) {
-        for (Term term : denominator.getTerms()) {
+
+        Polynomial correctedNumerator = denominator;
+        denominator.multiply(t);
+
+        for (Term term : correctedNumerator.getTerms()) {
+
             numerator.add(term);
         }
         simplify();
@@ -60,10 +69,13 @@ public class Expression {
     }
 
     public void subtract(Term t) {
-        for (Term term : denominator.getTerms()) {
-            numerator.subtract(term);
+        Polynomial correctedNumerator = denominator;
+        denominator.multiply(t);
+
+        for (Term term : correctedNumerator.getTerms()) {
+
+            numerator.add(term);
         }
-        simplify();
     }
 
     public void simplify() {
@@ -80,6 +92,9 @@ public class Expression {
             }
 
             int gcd = gcd(numerator_gcd, denominator_gcd);
+            gcd = Math.abs(gcd);
+
+            Log.d("GGGGGGG", Integer.toString(gcd));
 
             if (gcd > 1) {
                 for (Term term : numerator.getTerms()) {
