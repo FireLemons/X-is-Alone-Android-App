@@ -1,3 +1,5 @@
+package xyz.smaeul.xisalone;
+
 /**
  * Created by Madi on 10/14/16.
  */

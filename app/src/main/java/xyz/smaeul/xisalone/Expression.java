@@ -1,3 +1,5 @@
+package xyz.smaeul.xisalone;
+
 import java.util.LinkedList;
 
 
@@ -8,9 +10,11 @@ import java.util.LinkedList;
 public class Expression {
 
     private LinkedList<Polynomial> polynomialList=null;
+    private Polynomial demoninator = new Polynomial(0, 1);
 
     public Expression()
     {
+
     }
 
     public void addPolynomial(Polynomial x)
