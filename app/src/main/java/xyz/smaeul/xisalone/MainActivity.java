@@ -187,9 +187,26 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
         TextView rightNumerator = (TextView) findViewById(R.id.right_numerator);
         TextView rightDenominator = (TextView) findViewById(R.id.right_denominator);
 
+        String leftBottomText = leftSide.getDenominator().toHTML();
+        String rightBottomText = rightSide.getDenominator().toHTML();
+
         leftNumerator.setText(Html.fromHtml(leftSide.getNumerator().toHTML()));
-        leftDenominator.setText(Html.fromHtml(leftSide.getDenominator().toHTML()));
+        if (leftBottomText.equals("1")) {
+            findViewById(R.id.left_bar).setVisibility(View.GONE);
+            leftDenominator.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.left_bar).setVisibility(View.VISIBLE);
+            leftDenominator.setVisibility(View.VISIBLE);
+            leftDenominator.setText(Html.fromHtml(leftBottomText));
+        }
         rightNumerator.setText(Html.fromHtml(rightSide.getNumerator().toHTML()));
-        rightDenominator.setText(Html.fromHtml(rightSide.getDenominator().toHTML()));
+        if (rightBottomText.equals("1")) {
+            findViewById(R.id.right_bar).setVisibility(View.GONE);
+            rightDenominator.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.right_bar).setVisibility(View.VISIBLE);
+            rightDenominator.setVisibility(View.VISIBLE);
+            rightDenominator.setText(Html.fromHtml(rightBottomText));
+        }
     }
 }

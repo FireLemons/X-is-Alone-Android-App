@@ -70,6 +70,9 @@ public class Polynomial {
     public String toHTML() {
         // Array for term index sorted in reverse order by exponent
         int listSize = terms.size();
+        if (listSize == 0) {
+            return "0";
+        }
         int[] list = new int[listSize];
         for (int i = 0; i < listSize; i++) {
             list[i] = i;
@@ -96,12 +99,8 @@ public class Polynomial {
             if (i > 0 && coefficient > 0) {
                 output = output.concat("+");
             }
-            if (coefficient > 1 || coefficient < -1) {
+            if (coefficient > 1 || coefficient < -1 || exponent == 0) {
                 output = output.concat(Integer.valueOf(coefficient).toString());
-            } else if (coefficient == -1) {
-                output = output.concat("-");
-            } else if (coefficient == 1 && exponent == 0) {
-                output = output.concat("1");
             }
             if (exponent > 0) {
                 output = output.concat("x");
