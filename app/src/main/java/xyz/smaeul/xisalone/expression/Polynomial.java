@@ -107,7 +107,7 @@ public class Polynomial {
                 output = output.concat("x");
             }
             if (exponent > 1) {
-                output = output.concat("<sup>" + exponent + "</sup> ");
+                output = output.concat("<sup><small>" + exponent + "</small></sup> ");
             }
         }
         return (output);

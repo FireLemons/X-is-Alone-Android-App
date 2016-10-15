@@ -2,6 +2,7 @@ package xyz.smaeul.xisalone;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,13 +16,12 @@ import xyz.smaeul.xisalone.expression.Polynomial;
 import xyz.smaeul.xisalone.expression.Term;
 
 public class MainActivity extends AppCompatActivity implements OnSwipeListener {
-    // Number of operations to perform that the user must undo
-    private static final int steps = 5;
     // Radius size for circle in pixels: motion outside of this circle is considered input
     private static final float radius = 100f;
 
     private final TouchListener touchListener = new TouchListener(this, radius);
 
+    private int difficulty = 1;
     private LinearLayout numberStack;
     private Expression leftSide;
     private Expression rightSide;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
 
     public void resetExpression() {
         final TextView text = (TextView) findViewById(R.id.operation);
-        text.setText("∅");
+        text.setText("");
     }
 
     public void runGameStep(Operator operator) {
@@ -115,13 +115,14 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     }
 
     public void showPreview(Operator operator) {
-
+        final TextView text = (TextView) findViewById(R.id.operation);
+        text.setText(operator.toString());
     }
 
     public void startGame() {
         leftSide = new Expression(new Polynomial(new Term(1, 1)));
-        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10), 0)));
-        randomStack = new RandomStack(steps);
+        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10) + 1, 0)));
+        randomStack = new RandomStack(difficulty);
         undoStack = new UndoStack();
 
         LinearLayout numberStack = (LinearLayout) findViewById(R.id.number_stack);
@@ -170,6 +171,13 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         rightSide.getNumerator().isBareX() && rightSide.getDenominator().isIdentity())) {
             Toast toast = Toast.makeText(this, "You win!", Toast.LENGTH_SHORT);
             toast.show();
+            if (difficulty < 20) {
+                difficulty++;
+            }
+        } else {
+            if (difficulty > 1) {
+                difficulty--;
+            }
         }
     }
 
@@ -179,9 +187,9 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
         TextView rightNumerator = (TextView) findViewById(R.id.right_numerator);
         TextView rightDenominator = (TextView) findViewById(R.id.right_denominator);
 
-        leftNumerator.setText(leftSide.getNumerator().toHTML());
-        leftDenominator.setText(leftSide.getDenominator().toHTML());
-        rightNumerator.setText(rightSide.getNumerator().toHTML());
-        rightDenominator.setText(rightSide.getDenominator().toHTML());
+        leftNumerator.setText(Html.fromHtml(leftSide.getNumerator().toHTML()));
+        leftDenominator.setText(Html.fromHtml(leftSide.getDenominator().toHTML()));
+        rightNumerator.setText(Html.fromHtml(rightSide.getNumerator().toHTML()));
+        rightDenominator.setText(Html.fromHtml(rightSide.getDenominator().toHTML()));
     }
 }

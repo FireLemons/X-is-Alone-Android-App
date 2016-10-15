@@ -11,7 +11,7 @@ import xyz.smaeul.xisalone.expression.Term;
  */
 
 public class RandomStack {
-    private final static int MAX = 20;
+    private final static int MAX = 16;
 
     private final Random rand;
     private final Stack<Term> values;
