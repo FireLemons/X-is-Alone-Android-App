@@ -7,6 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Stack;
+
+import xyz.smaeul.xisalone.expression.Expression;
+import xyz.smaeul.xisalone.expression.Term;
 
 public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     // Number of operations to perform that the user must undo
@@ -92,5 +96,39 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
 
     public void undo(View v) {
 
+    }
+
+    public void checkWin(Stack<Operator> operators, Stack<Term> terms, Expression left, Expression right){
+
+
+        if(left.getDenominator().getNumberOfTerms() * left.getNumerator().getNumberOfTerms() *
+                right.getDenominator().getNumberOfTerms() * right.getNumerator().getNumberOfTerms() > 0){
+
+            Term leftFirstNumerator = left.getNumerator().getTerms().getFirst();
+            Term leftFirstDenominator = left.getDenominator().getTerms().getFirst();
+            Term rightFirstNumerator = right.getNumerator().getTerms().getFirst();
+            Term rightFirstDenominator = right.getDenominator().getTerms().getFirst();
+
+            boolean oneDenominators = left.getDenominator().getNumberOfTerms() * right.getDenominator().getNumberOfTerms() == 1 &&
+                    leftFirstDenominator.getExponent() + rightFirstDenominator.getExponent() == 0 &&
+                    leftFirstDenominator.getCoefficient() * rightFirstDenominator.getCoefficient() == 1;
+
+            boolean donePlaying = terms.isEmpty() && operators.isEmpty();
+
+            boolean leftIsX = left.getNumerator().getNumberOfTerms() *
+                    leftFirstNumerator.getCoefficient() *
+                    leftFirstNumerator.getExponent() == 1;
+
+            boolean rightiIs1 = right.getNumerator().getNumberOfTerms() * rightFirstNumerator.getCoefficient() + rightFirstNumerator.getExponent() == 1;
+
+            if(oneDenominators && donePlaying && leftIsX && rightiIs1){
+
+                //win
+                return;
+            }
+
+            //lose
+        }
+        //lose
     }
 }
