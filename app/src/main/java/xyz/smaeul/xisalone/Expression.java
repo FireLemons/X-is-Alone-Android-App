@@ -43,49 +43,37 @@ public class Expression {
         int multCoefficient=x.getCoefficient();
         int multExponent=x.getExponent();
 
-        for(int i=0; i<polynomialList.size(); i++)
+        for(int i=0; i < polynomialList.size(); i++)
         {
             Polynomial current = polynomialList.get(i);
             current.setCoefficient(current.getCoefficient() * multCoefficient);
             current.setExponent(current.getExponent() + multExponent);
         }
-
     }
 
     public void divide(Polynomial x)
-    {     int multCoefficient=x.getCoefficient();
-          int multExponent=x.getExponent();
+    {
 
-           for(int i=0; i<polynomialList.size(); i++){
-
-          }
-
-
-
-
-
-
-
+        denominator.setCoefficient(denominator.getCoefficient() * x.getCoefficient());
+        denominator.setExponent(x.getExponent() + denominator.getExponent());
     }
 
     public void add(Polynomial x)
     {
-        int multCoefficient=x.getCoefficient();
-        int multExponent=x.getExponent();
+        int multCoefficient = x.getCoefficient();
+        int multExponent = x.getExponent();
         for(int i=0; i<polynomialList.size(); i++)
         {
             Polynomial current=polynomialList.get(i);
+
             if(multExponent==current.getExponent())     //exponents are the same, can add coefficients
             {
-                current.setCoefficient(current.getCoefficient()+multCoefficient);
-            }
-
-            else //coefficients are not equal, cant combine like terms
-            {
-               polynomialList.add(x);
+                current.setCoefficient(current.getCoefficient() + multCoefficient);
+                return;
             }
        }
 
+        polynomialList.add(x);
    }
    public void subtract(Polynomial x)
    {
@@ -99,13 +87,11 @@ public class Expression {
            if(multExponent==current.getExponent())   //if exponents are the same we can subtract like terms
            {
                current.setCoefficient(current.getCoefficient()-multCoefficient);
-           }
-           else   //if exponents are not like terms we cant subtract coefficients
-           {
-                polynomialList.add(x);
+               return;
            }
        }
 
+        polynomialList.add(x);
    }
 
     public void simplify()    //Simplify
@@ -122,11 +108,11 @@ public class Expression {
 
                 if(current.getCoefficient() == 0){
 
-                    polynomialList.remove(i);
+                    polynomialList.remove(i);//remove 0s
                 }else{
 
-                    highest_shared_exponent = current.getExponent();
-                    gcd = gcd(current.getCoefficient(), gcd);
+                    highest_shared_exponent = current.getExponent();//greatest common denominaors of all numbers
+                    gcd = gcd(current.getCoefficient(), gcd);//highest shared term variable power
                 }
             }
 
@@ -134,14 +120,15 @@ public class Expression {
 
                 Polynomial current = polynomialList.get(i);
 
-                current.setCoefficient(current.getCoefficient() - highest_shared_exponent);
-                current.setCoefficient(current.getCoefficient() / gcd);
-                denominator.setCoefficient(denominator.getCoefficient() / gcd);
+                current.setExponent(current.getExponent() - highest_shared_exponent);//divide by variable gcd
+                current.setCoefficient(current.getCoefficient() / gcd);//divide all values by gcd
+                denominator.setCoefficient(denominator.getCoefficient() / gcd);//divide denominator by gcd
+                denominator.setExponent(denominator.getExponent() - highest_shared_exponent);//divide exponent gcd
             }
         }
     }
 
-    public static int gcd(int p, int q) {
+    public static int gcd(int p, int q) {// gets greatest common denominator of p, q
 
         while (q != 0) {
             int temp = q;
