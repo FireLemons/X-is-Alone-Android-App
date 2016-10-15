@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class Expression {
 
     private LinkedList<Polynomial> polynomialList=null;
-    private Polynomial demoninator = new Polynomial(0, 1);
+    private Polynomial denominator = new Polynomial(0, 1);
 
     public Expression()
     {
@@ -100,5 +100,43 @@ public class Expression {
     public void Simplify()    //Simplify
     {
 
+        if(polynomialList.size() > 0){
+
+            int gcd = gcd(polynomialList.getFirst().getCoefficient(), denominator.getCoefficient());
+            int highest_shared_exponent = polynomialList.getFirst().getExponent();
+
+            for(int i = 1; i < polynomialList.size(); i++){
+
+                Polynomial current = polynomialList.get(i);
+
+                if(current.getCoefficient() == 0){
+
+                    polynomialList.remove(i);
+                }else{
+
+                    highest_shared_exponent = current.getExponent();
+                    gcd = gcd(current.getCoefficient(), gcd);
+                }
+            }
+
+            for(int i = 1; i < polynomialList.size(); i++){
+
+                Polynomial current = polynomialList.get(i);
+
+                current.setCoefficient(current.getCoefficient() - highest_shared_exponent);
+                current.setCoefficient(current.getCoefficient() / gcd);
+                denominator.setCoefficient(denominator.getCoefficient() / gcd);
+            }
+        }
+    }
+
+    public static int gcd(int p, int q) {
+
+        while (q != 0) {
+            int temp = q;
+            q = p % q;
+            p = temp;
+        }
+        return p;
     }
 }
