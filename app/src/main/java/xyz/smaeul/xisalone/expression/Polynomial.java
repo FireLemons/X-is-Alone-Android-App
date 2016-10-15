@@ -20,6 +20,9 @@ public class Polynomial {
         for (Term term : terms) {
             if (term.exponent == t.exponent) {
                 term.coefficient += t.coefficient;
+                if (term.coefficient == 0) {
+                    terms.remove(term);
+                }
                 found = true;
                 break;
             }
@@ -27,6 +30,10 @@ public class Polynomial {
         if (found == false) {
             terms.add(t);
         }
+    }
+
+    public int getNumberOfTerms() {
+        return terms.size();
     }
 
     public LinkedList<Term> getTerms() {
@@ -37,6 +44,9 @@ public class Polynomial {
         for (Term term : terms) {
             term.coefficient *= t.coefficient;
             term.exponent += t.exponent;
+            if (term.coefficient == 0) {
+                terms.remove(term);
+            }
         }
     }
 

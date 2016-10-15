@@ -26,6 +26,19 @@ public class Expression {
         simplify();
     }
 
+    private static int gcd(int p, int q) {
+        while (q != 0) {
+            int temp = q;
+            q = p % q;
+            p = temp;
+        }
+        return p;
+    }
+
+    private static int min(int a, int b) {
+        return a <= b ? a : b;
+    }
+
     public void multiply(Term t) {
         numerator.multiply(t);
         simplify();
@@ -39,6 +52,50 @@ public class Expression {
     }
 
     public void simplify() {
-        throw new RuntimeException("not implemented");
+        if (numerator.getNumberOfTerms() > 0 && denominator.getNumberOfTerms() > 0) {
+            // Simplify coefficients
+            int numerator_gcd = numerator.getTerms().getFirst().coefficient;
+            int denominator_gcd = denominator.getTerms().getFirst().coefficient;
+
+            for (Term term : numerator.getTerms()) {
+                numerator_gcd = gcd(numerator_gcd, term.coefficient);
+            }
+            for (Term term : denominator.getTerms()) {
+                denominator_gcd = gcd(denominator_gcd, term.coefficient);
+            }
+
+            int gcd = gcd(numerator_gcd, denominator_gcd);
+
+            if (gcd > 1) {
+                for (Term term : numerator.getTerms()) {
+                    term.coefficient /= gcd;
+                }
+                for (Term term : denominator.getTerms()) {
+                    term.coefficient /= gcd;
+                }
+            }
+
+            //Simplify exponents
+            int numerator_min_exp = numerator.getTerms().getFirst().exponent;
+            int denominator_min_exp = denominator.getTerms().getFirst().exponent;
+
+            for (Term term : numerator.getTerms()) {
+                numerator_min_exp = min(numerator_min_exp, term.exponent);
+            }
+            for (Term term : denominator.getTerms()) {
+                denominator_min_exp = min(denominator_min_exp, term.exponent);
+            }
+
+            int min_exp = min(numerator_min_exp, denominator_min_exp);
+
+            if (min_exp > 0) {
+                for (Term term : numerator.getTerms()) {
+                    term.exponent -= min_exp;
+                }
+                for (Term term : denominator.getTerms()) {
+                    term.exponent -= min_exp;
+                }
+            }
+        }
     }
 }
