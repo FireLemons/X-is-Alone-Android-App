@@ -41,6 +41,18 @@ public class Polynomial {
         return new LinkedList<Term>(terms);
     }
 
+    public boolean isBareX() {
+        return terms.size() == 1 && terms.getFirst().coefficient == 1 && terms.getFirst().exponent == 1;
+    }
+
+    public boolean isConstant() {
+        return terms.size() == 1 && terms.getFirst().exponent == 0;
+    }
+
+    public boolean isIdentity() {
+        return isConstant() && terms.getFirst().coefficient == 1;
+    }
+
     public void multiply(Term t) {
         for (Term term : terms) {
             term.coefficient *= t.coefficient;

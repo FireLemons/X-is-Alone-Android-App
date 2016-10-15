@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Stack;
 
 import xyz.smaeul.xisalone.expression.Expression;
 import xyz.smaeul.xisalone.expression.Polynomial;
@@ -16,7 +16,7 @@ import xyz.smaeul.xisalone.expression.Term;
 
 public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     // Number of operations to perform that the user must undo
-    private static final int steps = 10;
+    private static final int steps = 5;
     // Radius size for circle in pixels: motion outside of this circle is considered input
     private static final float radius = 100f;
 
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
         }
         updateDisplay();
         if (numberStack.getChildCount() == 0) {
+            checkWin();
             startGame();
         } else {
             numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
@@ -162,37 +163,25 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
 
     }
 
-    public void checkWin(Stack<Operator> operators, Stack<Term> terms, Expression left, Expression right) {
-        if (left.getDenominator().getNumberOfTerms() * left.getNumerator().getNumberOfTerms() *
-                right.getDenominator().getNumberOfTerms() * right.getNumerator().getNumberOfTerms() > 0) {
-
-            Term leftFirstNumerator = left.getNumerator().getTerms().getFirst();
-            Term leftFirstDenominator = left.getDenominator().getTerms().getFirst();
-            Term rightFirstNumerator = right.getNumerator().getTerms().getFirst();
-            Term rightFirstDenominator = right.getDenominator().getTerms().getFirst();
-
-            boolean oneDenominators = left.getDenominator().getNumberOfTerms() * right.getDenominator().getNumberOfTerms() == 1 &&
-                    leftFirstDenominator.getExponent() + rightFirstDenominator.getExponent() == 0 &&
-                    leftFirstDenominator.getCoefficient() * rightFirstDenominator.getCoefficient() == 1;
-
-            boolean donePlaying = terms.isEmpty() && operators.isEmpty();
-
-            boolean leftIsX = left.getNumerator().getNumberOfTerms() *
-                    leftFirstNumerator.getCoefficient() *
-                    leftFirstNumerator.getExponent() == 1;
-
-            boolean rightiIs1 = right.getNumerator().getNumberOfTerms() * rightFirstNumerator.getCoefficient() + rightFirstNumerator.getExponent() == 1;
-
-            if (oneDenominators && donePlaying && leftIsX && rightiIs1) {
-                //win
-                return;
-            }
-            //lose
+    public void checkWin() {
+        if ((leftSide.getNumerator().isBareX() && leftSide.getDenominator().isIdentity() &&
+                rightSide.getNumerator().isConstant() && rightSide.getDenominator().isIdentity()) ||
+                (leftSide.getNumerator().isConstant() && leftSide.getDenominator().isIdentity() &&
+                        rightSide.getNumerator().isBareX() && rightSide.getDenominator().isIdentity())) {
+            Toast toast = Toast.makeText(this, "You win!", Toast.LENGTH_SHORT);
+            toast.show();
         }
-        //lose
     }
 
     private void updateDisplay() {
+        TextView leftNumerator = (TextView) findViewById(R.id.left_numerator);
+        TextView leftDenominator = (TextView) findViewById(R.id.left_denominator);
+        TextView rightNumerator = (TextView) findViewById(R.id.right_numerator);
+        TextView rightDenominator = (TextView) findViewById(R.id.right_denominator);
 
+        leftNumerator.setText(leftSide.getNumerator().toHTML());
+        leftDenominator.setText(leftSide.getDenominator().toHTML());
+        rightNumerator.setText(rightSide.getNumerator().toHTML());
+        rightDenominator.setText(rightSide.getDenominator().toHTML());
     }
 }
