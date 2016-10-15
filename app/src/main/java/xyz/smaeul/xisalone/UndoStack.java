@@ -1,5 +1,7 @@
 package xyz.smaeul.xisalone;
 
+import android.util.Log;
+
 import java.util.Stack;
 
 import xyz.smaeul.xisalone.expression.Term;
@@ -9,8 +11,8 @@ import xyz.smaeul.xisalone.expression.Term;
  */
 
 public class UndoStack {
-    private final Stack<Term> undoValues;
-    private final Stack<Operator> undoOperations;
+    private Stack<Term> undoValues;
+    private Stack<Operator> undoOperations;
 
     public UndoStack() {
         undoValues = new Stack<>();
@@ -43,7 +45,18 @@ public class UndoStack {
         }
     }
 
+    public Term popUndoValue(){
+
+        return undoValues.pop();
+    }
+
+    public Operator popUndoOperation(){
+
+        return undoOperations.pop();
+    }
+
     public void addUndoValue(Term t) {
+
         undoValues.push(t);
     }
 }

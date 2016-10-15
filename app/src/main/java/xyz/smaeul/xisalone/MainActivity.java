@@ -3,6 +3,7 @@ package xyz.smaeul.xisalone;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,18 +92,26 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
             case ADD:
                 leftSide.add(term);
                 rightSide.add(term);
+                undoStack.addUndoValue(term);
+                undoStack.addUndoOperation(Operator.ADD);
                 break;
             case SUBTRACT:
                 leftSide.subtract(term);
                 rightSide.subtract(term);
+                undoStack.addUndoValue(term);
+                undoStack.addUndoOperation(Operator.SUBTRACT);
                 break;
             case MULTIPLY:
                 leftSide.multiply(term);
                 rightSide.multiply(term);
+                undoStack.addUndoValue(term);
+                undoStack.addUndoOperation(Operator.MULTIPLY);
                 break;
             case DIVIDE:
                 leftSide.divide(term);
                 rightSide.divide(term);
+                undoStack.addUndoValue(term);
+                undoStack.addUndoOperation(Operator.DIVIDE);
                 break;
         }
         updateDisplay();
@@ -162,6 +171,37 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
 
     public void undo(View v) {
 
+        if(undoStack != null){
+
+            if(!undoStack.getUndoValues().isEmpty()) {
+
+                Term term = undoStack.popUndoValue();
+                Operator operator = undoStack.popUndoOperation();
+
+                switch (operator) {
+                    case ADD:
+                        leftSide.add(term);
+                        rightSide.add(term);
+                        updateDisplay();
+                        break;
+                    case SUBTRACT:
+                        leftSide.subtract(term);
+                        rightSide.subtract(term);
+                        updateDisplay();
+                        break;
+                    case MULTIPLY:
+                        leftSide.multiply(term);
+                        rightSide.multiply(term);
+                        updateDisplay();
+                        break;
+                    case DIVIDE:
+                        leftSide.divide(term);
+                        rightSide.divide(term);
+                        updateDisplay();
+                        break;
+                }
+            }
+        }
     }
 
     public void checkWin() {
@@ -172,14 +212,34 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
             Toast toast = Toast.makeText(this, "You win!", Toast.LENGTH_SHORT);
             toast.show();
             if (difficulty < 20) {
+
+                undoStack = new UndoStack();
                 difficulty++;
             }
         } else {
             if (difficulty > 1) {
+
+                undoStack = new UndoStack();
                 difficulty--;
             }
         }
     }
+
+    /*ublic void showEndRoundMessage(int n, String text){
+
+        setContentView(R.layout.win_lose_screen);
+        TextView message = (TextView) findViewById(R.id.endGameMessage);
+        message.setText(text);
+        difficulty = n;
+    }
+
+    public void restart(View view){
+
+        setContentView(R.layout.activity_main);
+        findViewById(R.id.activity_main).setOnTouchListener(touchListener);
+        difficulty = 1;
+        startGame();
+    }*/
 
     private void updateDisplay() {
         TextView leftNumerator = (TextView) findViewById(R.id.left_numerator);
