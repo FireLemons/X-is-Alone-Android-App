@@ -1,57 +1,49 @@
 package xyz.smaeul.xisalone;
 
 import java.util.Stack;
-import xyz.smaeul.xisalone.expression.*;
+
+import xyz.smaeul.xisalone.expression.Term;
+
 /**
  * Created by YANG on 10/15/2016.
  */
 
 public class UndoStack {
+    private Stack<Term> undoValues;
+    private Stack<Operator> undoOperations;
 
-    Stack<Term> undoValues;
-    Stack<Operator> undoOpeations;
-
-    public UndoStack(){
-
-        undoValues = new Stack<Term>();
-        undoOpeations = new Stack<Operator>();
+    public UndoStack() {
+        undoValues = new Stack<>();
+        undoOperations = new Stack<>();
     }
 
-    public Stack<Term> getUndoValues(){
-
+    public Stack<Term> getUndoValues() {
         return undoValues;
     }
 
-    public Stack<Operator> getUndoOpeations(){
-
-        return undoOpeations;
+    public Stack<Operator> getUndoOperations() {
+        return undoOperations;
     }
 
-    public void addUndoOperation(Operator o){//adds compliment of operator given
-
-        switch(o){
-
+    public void addUndoOperation(Operator o) {
+        //adds compliment of operator given
+        switch (o) {
             case MULTIPLY:
-
-                undoOpeations.push(Operator.DIVIDE);
+                undoOperations.push(Operator.DIVIDE);
                 break;
             case DIVIDE:
-
-                undoOpeations.push(Operator.MULTIPLY);
+                undoOperations.push(Operator.MULTIPLY);
                 break;
             case ADD:
-
-                undoOpeations.push(Operator.SUBTRACT);
+                undoOperations.push(Operator.SUBTRACT);
                 break;
             case SUBTRACT:
-
-                undoOpeations.push(Operator.ADD);
+                undoOperations.push(Operator.ADD);
                 break;
         }
     }
 
-    public void addUndoValue(Term t){
-
+    public void addUndoValue(Term t) {
         undoValues.push(t);
     }
 }
