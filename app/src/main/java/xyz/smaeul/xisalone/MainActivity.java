@@ -3,7 +3,6 @@ package xyz.smaeul.xisalone;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -187,7 +186,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         updateDisplay();
                         textView.setPadding(16, 0, 16, 0);
                         textView.setText(new Polynomial(term).toHTML());
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
                         numberStack.addView(textView, 0);
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        randomStack.getValues().push(term);
                         break;
                     case SUBTRACT:
                         leftSide.subtract(term);
@@ -195,7 +197,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         updateDisplay();
                         textView.setPadding(16, 0, 16, 0);
                         textView.setText(new Polynomial(term).toHTML());
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
                         numberStack.addView(textView, 0);
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        randomStack.getValues().push(term);
                         break;
                     case MULTIPLY:
                         leftSide.multiply(term);
@@ -203,7 +208,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         updateDisplay();
                         textView.setPadding(16, 0, 16, 0);
                         textView.setText(new Polynomial(term).toHTML());
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
                         numberStack.addView(textView, 0);
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        randomStack.getValues().push(term);
                         break;
                     case DIVIDE:
                         leftSide.divide(term);
@@ -211,7 +219,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         updateDisplay();
                         textView.setPadding(16, 0, 16, 0);
                         textView.setText(new Polynomial(term).toHTML());
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
                         numberStack.addView(textView, 0);
+                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        randomStack.getValues().push(term);
                         break;
                 }
             }
