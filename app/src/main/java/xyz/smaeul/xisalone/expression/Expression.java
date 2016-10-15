@@ -14,6 +14,21 @@ public class Expression {
         denominator = new Polynomial();
     }
 
+    public Expression(Polynomial numerator) {
+        this.numerator = numerator;
+        denominator = new Polynomial();
+    }
+
+    public Polynomial getNumerator(){
+
+        return numerator;
+    }
+
+    public Polynomial getDenominator(){
+
+        return denominator;
+    }
+
     public void add(Term t) {
         for (Term term : denominator.getTerms()) {
             numerator.add(term);

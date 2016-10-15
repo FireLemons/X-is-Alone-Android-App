@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import xyz.smaeul.xisalone.expression.Expression;
+
 public class MainActivity extends AppCompatActivity {
 
     private class Coordinates {
@@ -30,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView text = (TextView) findViewById(R.id.operation);
-        final View view = findViewById(R.id.activity_main);
+
+        Expression e = new Expression();
+
+        /*final View view = findViewById(R.id.activity_main);
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startGame();
+        startGame();*/
     }
 
     public void options(View v) {
