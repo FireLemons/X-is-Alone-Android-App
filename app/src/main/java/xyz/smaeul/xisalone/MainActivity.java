@@ -242,6 +242,8 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                 difficulty++;
             }
         } else {
+            Toast toast = Toast.makeText(this, "You Lose!", Toast.LENGTH_SHORT);
+            toast.show();
             if (difficulty > 1) {
 
                 undoStack = new UndoStack();
