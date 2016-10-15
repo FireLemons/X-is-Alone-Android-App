@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/left_bar"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/anchor"
         android:text="topleft" />
 
@@ -65,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/right_bar"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/anchor"
         android:text="topright" />
 

@@ -76,10 +76,7 @@ public class TouchListener implements OnTouchListener {
 
             // When finger is lifted
             case (MotionEvent.ACTION_UP):
-                if (currentDirection != lastDirection) {
-                    lastDirection = currentDirection;
-                    swipeListener.onSwipe(currentDirection, true);
-                }
+                swipeListener.onSwipe(currentDirection, true);
                 return true;
 
             default:
