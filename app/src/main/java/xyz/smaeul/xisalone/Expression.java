@@ -15,11 +15,22 @@ public class Expression {
     public Expression()
     {
 
+        polynomialList = new LinkedList<Polynomial>();
     }
 
     public void addPolynomial(Polynomial x)
     {
         polynomialList.add(x);
+    }
+
+    public Polynomial getDenominator(){
+
+        return denominator;
+    }
+
+    public void setDenominator(Polynomial denominator){
+
+        this.denominator = denominator;
     }
 
     public LinkedList getPolynomial()
@@ -97,7 +108,7 @@ public class Expression {
 
    }
 
-    public void Simplify()    //Simplify
+    public void simplify()    //Simplify
     {
 
         if(polynomialList.size() > 0){
