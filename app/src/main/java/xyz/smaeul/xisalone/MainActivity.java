@@ -74,10 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
         }
     }
 
-    public void options(View v) {
-
-    }
-
     public void resetExpression() {
         final TextView text = (TextView) findViewById(R.id.operation);
         text.setText("");

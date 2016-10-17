@@ -76,7 +76,7 @@
         android:layout_toRightOf="@id/anchor"/>
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -87,14 +87,6 @@
         android:id="@+id/operation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/anchor"
         android:layout_centerHorizontal="true"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="options"
-        android:src="@android:drawable/ic_menu_preferences" />
 </RelativeLayout>
