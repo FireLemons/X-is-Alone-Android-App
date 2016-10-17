@@ -178,50 +178,35 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                 Operator operator = undoStack.popUndoOperation();
 
                 TextView textView = new TextView(this);
+                textView.setPadding(16, 0, 16, 0);
+                textView.setText(new Polynomial(term).toHTML());
+                numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
+                numberStack.addView(textView, 0);
+                numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
 
                 switch (operator) {
                     case ADD:
                         leftSide.add(term);
                         rightSide.add(term);
                         updateDisplay();
-                        textView.setPadding(16, 0, 16, 0);
-                        textView.setText(new Polynomial(term).toHTML());
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
-                        numberStack.addView(textView, 0);
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         randomStack.getValues().push(term);
                         break;
                     case SUBTRACT:
                         leftSide.subtract(term);
                         rightSide.subtract(term);
                         updateDisplay();
-                        textView.setPadding(16, 0, 16, 0);
-                        textView.setText(new Polynomial(term).toHTML());
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
-                        numberStack.addView(textView, 0);
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         randomStack.getValues().push(term);
                         break;
                     case MULTIPLY:
                         leftSide.multiply(term);
                         rightSide.multiply(term);
                         updateDisplay();
-                        textView.setPadding(16, 0, 16, 0);
-                        textView.setText(new Polynomial(term).toHTML());
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
-                        numberStack.addView(textView, 0);
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         randomStack.getValues().push(term);
                         break;
                     case DIVIDE:
                         leftSide.divide(term);
                         rightSide.divide(term);
                         updateDisplay();
-                        textView.setPadding(16, 0, 16, 0);
-                        textView.setText(new Polynomial(term).toHTML());
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.ghost));
-                        numberStack.addView(textView, 0);
-                        numberStack.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                         randomStack.getValues().push(term);
                         break;
                 }
