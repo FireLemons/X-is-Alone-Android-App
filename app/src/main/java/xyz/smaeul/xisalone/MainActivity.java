@@ -87,29 +87,28 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
             case ADD:
                 leftSide.add(term);
                 rightSide.add(term);
-                undoStack.addUndoValue(term);
                 undoStack.addUndoOperation(Operator.ADD);
                 break;
             case SUBTRACT:
                 leftSide.subtract(term);
                 rightSide.subtract(term);
-                undoStack.addUndoValue(term);
                 undoStack.addUndoOperation(Operator.SUBTRACT);
                 break;
             case MULTIPLY:
                 leftSide.multiply(term);
                 rightSide.multiply(term);
-                undoStack.addUndoValue(term);
                 undoStack.addUndoOperation(Operator.MULTIPLY);
                 break;
             case DIVIDE:
                 leftSide.divide(term);
                 rightSide.divide(term);
-                undoStack.addUndoValue(term);
                 undoStack.addUndoOperation(Operator.DIVIDE);
                 break;
         }
+
+        undoStack.addUndoValue(term);
         updateDisplay();
+
         if (numberStack.getChildCount() == 0) {
             checkWin();
             startGame();
@@ -184,28 +183,23 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                     case ADD:
                         leftSide.add(term);
                         rightSide.add(term);
-                        updateDisplay();
-                        randomStack.getValues().push(term);
                         break;
                     case SUBTRACT:
                         leftSide.subtract(term);
                         rightSide.subtract(term);
-                        updateDisplay();
-                        randomStack.getValues().push(term);
                         break;
                     case MULTIPLY:
                         leftSide.multiply(term);
                         rightSide.multiply(term);
-                        updateDisplay();
-                        randomStack.getValues().push(term);
                         break;
                     case DIVIDE:
                         leftSide.divide(term);
                         rightSide.divide(term);
-                        updateDisplay();
-                        randomStack.getValues().push(term);
                         break;
                 }
+
+                updateDisplay();
+                randomStack.getValues().push(term);
             }
         }
     }
