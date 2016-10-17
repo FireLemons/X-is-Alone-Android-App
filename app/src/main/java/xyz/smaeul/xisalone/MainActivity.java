@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                 }
                 break;
         }
+        if(released){
+
+            clearPreview();
+        }
     }
 
     public void resetExpression() {
@@ -100,8 +104,12 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                 undoStack.addUndoOperation(Operator.MULTIPLY);
                 break;
             case DIVIDE:
-                leftSide.divide(term);
-                rightSide.divide(term);
+                if(!leftSide.getNumerator().getTerms().isEmpty()) {
+                    leftSide.divide(term);
+                }
+                if(!leftSide.getNumerator().getTerms().isEmpty()) {
+                    rightSide.divide(term);
+                }
                 undoStack.addUndoOperation(Operator.DIVIDE);
                 break;
         }
@@ -122,9 +130,15 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
         text.setText(operator.toString());
     }
 
+    public void clearPreview(){
+
+        final TextView text = (TextView) findViewById(R.id.operation);
+        text.setText("");
+    }
+
     public void startGame() {
         leftSide = new Expression(new Polynomial(new Term(1, 1)));
-        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10) + 1, 0)));
+        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10), 0)));
         randomStack = new RandomStack(difficulty);
         undoStack = new UndoStack();
 
@@ -150,8 +164,14 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                     rightSide.multiply(term);
                     break;
                 case DIVIDE:
-                    leftSide.divide(term);
-                    rightSide.divide(term);
+                    if(!leftSide.getNumerator().getTerms().isEmpty()) {
+
+                        leftSide.divide(term);
+                    }
+                    if(!rightSide.getNumerator().getTerms().isEmpty()) {
+
+                        rightSide.divide(term);
+                    }
                     break;
             }
             TextView textView = new TextView(this);
@@ -193,8 +213,13 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                         rightSide.multiply(term);
                         break;
                     case DIVIDE:
-                        leftSide.divide(term);
-                        rightSide.divide(term);
+
+                        if(!leftSide.getNumerator().getTerms().isEmpty()) {
+                            leftSide.divide(term);
+                        }
+                        if(!rightSide.getNumerator().getTerms().isEmpty()) {
+                            rightSide.divide(term);
+                        }
                         break;
                 }
 
