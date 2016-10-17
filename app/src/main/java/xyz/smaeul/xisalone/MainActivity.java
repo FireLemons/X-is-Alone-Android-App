@@ -205,26 +205,24 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
     }
 
     public void checkWin() {
+
+        String scoreChange = "";
+
         if ((leftSide.getNumerator().isBareX() && leftSide.getDenominator().isIdentity() &&
                 rightSide.getNumerator().isConstant() && rightSide.getDenominator().isIdentity()) ||
                 (leftSide.getNumerator().isConstant() && leftSide.getDenominator().isIdentity() &&
                         rightSide.getNumerator().isBareX() && rightSide.getDenominator().isIdentity())) {
-            Toast toast = Toast.makeText(this, "You win!", Toast.LENGTH_SHORT);
-            toast.show();
-            if (difficulty < 20) {
-
-                undoStack = new UndoStack();
-                difficulty++;
-            }
+            scoreChange = "+1";
+            difficulty++;
         } else {
-            Toast toast = Toast.makeText(this, "You Lose!", Toast.LENGTH_SHORT);
-            toast.show();
             if (difficulty > 1) {
 
-                undoStack = new UndoStack();
                 difficulty--;
+                scoreChange = "-1";
             }
         }
+        Toast toast = Toast.makeText(this,  scoreChange + " Score:" + Integer.toString(difficulty - 1), Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     /*ublic void showEndRoundMessage(int n, String text){
