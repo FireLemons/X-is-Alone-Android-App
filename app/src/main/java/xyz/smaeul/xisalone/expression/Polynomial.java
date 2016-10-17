@@ -101,10 +101,11 @@ public class Polynomial {
             }
             if (coefficient > 1 || coefficient < -1 || exponent == 0) {
                 output = output.concat(Integer.valueOf(coefficient).toString());
-            }else if(coefficient == -1){
-                output.concat("-");
             }
             if (exponent > 0) {
+                if(coefficient == -1){
+                    output = output.concat("-");
+                }
                 output = output.concat("x");
             }
             if (exponent > 1) {

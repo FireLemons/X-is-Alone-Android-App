@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnSwipeListener {
                 if(!leftSide.getNumerator().getTerms().isEmpty()) {
                     leftSide.divide(term);
                 }
-                if(!leftSide.getNumerator().getTerms().isEmpty()) {
+                if(!rightSide.getNumerator().getTerms().isEmpty()) {
                     rightSide.divide(term);
                 }
                 undoStack.addUndoOperation(Operator.DIVIDE);
