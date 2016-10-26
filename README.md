@@ -20,3 +20,11 @@ User swipes left to subtract 3 and swipes down to divide by 2 to win
 ## Contributors
 
 Shen Yang(shenyang64@gmail.com), Sai Kumar(saikovuri367@gmail.com), Christopher Wong(cwong164@gmail.com), Samuel Holland(samuel@sholland.org)  
+
+## Upcoming Features
+
+Persistent data
+
+Main Menu
+    Options
+        Alternate Control Scheme
