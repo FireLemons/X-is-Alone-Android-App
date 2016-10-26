@@ -46,7 +46,7 @@ public class Polynomial {
     }
 
     public boolean isConstant() {
-        return terms.size() == 1 && terms.getFirst().exponent == 0;
+        return terms.size() == 0 || (terms.size() == 1 && terms.getFirst().exponent == 0);
     }
 
     public boolean isIdentity() {
