@@ -23,4 +23,9 @@
         <item name="android:layout_marginTop">4dp</item>
     </style>
 
+    <style name="OptionsCheckBox" parent="android:Widget.CompoundButton.CheckBox">
+
+        <item name="android:textSize">12pt</item>
+    </style>
+
 </resources>

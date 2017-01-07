@@ -4,5 +4,6 @@
     <style name="OptionsCheckBox">
 
         <item name="android:buttonTint">@color/navyHighlight</item>
+        <item name="android:textSize">12pt</item>
     </style>
 </resources>

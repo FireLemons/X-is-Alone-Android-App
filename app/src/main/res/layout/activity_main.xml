@@ -13,12 +13,24 @@
 
     <Button
         android:background="@color/navyHighlight"
+        android:id="@+id/newGame"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:textSize="20pt"
         android:text="@string/new_game"
         android:textAllCaps="false"
         android:onClick="startGame">
+    </Button>
+
+    <Button
+        android:background="@color/navyHighlight"
+        android:layout_below="@+id/newGame"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:textSize="20pt"
+        android:text="@string/options"
+        android:textAllCaps="false">
     </Button>
 
 </RelativeLayout>
