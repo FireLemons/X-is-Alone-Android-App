@@ -1,5 +1,7 @@
 package xyz.smaeul.xisalone.expression;
 
+import android.util.Log;
+
 import java.util.LinkedList;
 
 /**
@@ -17,7 +19,7 @@ public class Polynomial {
 
     public Polynomial(Term t) {
         this();
-        terms.add(t);
+        this.add(t);
     }
 
     public void add(Term t) {
@@ -30,7 +32,23 @@ public class Polynomial {
                 return;
             }
         }
-        terms.add(t);
+        if(t.coefficient != 0) {
+            terms.add(t);
+        }
+    }
+
+    public void subtract(Term t) {
+        add(new Term(-t.coefficient, t.exponent));
+    }
+
+    public void multiply(Term t) {
+        for (Term term : terms) {
+            term.coefficient *= t.coefficient;
+            term.exponent += t.exponent;
+            if (term.coefficient == 0) {
+                terms.remove(term);
+            }
+        }
     }
 
     public int getNumberOfTerms() {
@@ -51,20 +69,6 @@ public class Polynomial {
 
     public boolean isIdentity() {
         return isConstant() && terms.getFirst().coefficient == 1;
-    }
-
-    public void multiply(Term t) {
-        for (Term term : terms) {
-            term.coefficient *= t.coefficient;
-            term.exponent += t.exponent;
-            if (term.coefficient == 0) {
-                terms.remove(term);
-            }
-        }
-    }
-
-    public void subtract(Term t) {
-        add(new Term(-t.coefficient, t.exponent));
     }
 
     public String toHTML() {
@@ -93,14 +97,14 @@ public class Polynomial {
         // Create HTML
         String output = new String();
         for (int i = 0; i < listSize; i++) {
-            int coefficient = terms.get(list[i]).getCoefficient();
-            int exponent = terms.get(list[i]).getExponent();
+            long coefficient = terms.get(list[i]).getCoefficient();
+            long exponent = terms.get(list[i]).getExponent();
 
             if (i > 0 && coefficient > 0) {
                 output = output.concat("+");
             }
             if (coefficient > 1 || coefficient < -1 || exponent == 0) {
-                output = output.concat(Integer.valueOf(coefficient).toString());
+                output = output.concat(Long.valueOf(coefficient).toString());
             }
             if (exponent > 0) {
                 if(coefficient == -1){

@@ -3,6 +3,7 @@ package xyz.smaeul.xisalone;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -138,7 +139,7 @@ public class GameActivity extends AppCompatActivity implements OnSwipeListener{
 
     public void startGame() {
         leftSide = new Expression(new Polynomial(new Term(1, 1)));
-        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10), 0)));
+        rightSide = new Expression(new Polynomial(new Term(new Random().nextInt(10)/*0*/, 0)));
         randomStack = new RandomStack(difficulty);
         undoStack = new UndoStack();
 
@@ -152,12 +153,28 @@ public class GameActivity extends AppCompatActivity implements OnSwipeListener{
             Term term = termIterator.next();
             switch (operator) {
                 case ADD:
+                    /*Log.d("Add", "Called");
+                    Log.d("RightDenominator",rightSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getDenominator().getTerms().getFirst().getExponent());
+                    Log.d("LeftNumerator",leftSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("LeftDenominator",leftSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getDenominator().getTerms().getFirst().getExponent());*/
                     leftSide.add(term);
                     rightSide.add(term);
+                    /*Log.d("RightNumerator",rightSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("RightDenominator",rightSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getDenominator().getTerms().getFirst().getExponent());
+                    Log.d("LeftNumerator",leftSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("LeftDenominator",leftSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getDenominator().getTerms().getFirst().getExponent());*/
                     break;
                 case SUBTRACT:
+                    /*Log.d("Subtract", "Called");
+                    Log.d("RightDenominator",rightSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getDenominator().getTerms().getFirst().getExponent());
+                    Log.d("LeftNumerator",leftSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("LeftDenominator",leftSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getDenominator().getTerms().getFirst().getExponent());*/
                     leftSide.subtract(term);
                     rightSide.subtract(term);
+                    /*Log.d("RightNumerator",rightSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("RightDenominator",rightSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + rightSide.getDenominator().getTerms().getFirst().getExponent());
+                    Log.d("LeftNumerator",leftSide.getNumerator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getNumerator().getTerms().getFirst().getExponent());
+                    Log.d("LeftDenominator",leftSide.getDenominator().getTerms().getFirst().getCoefficient() + " Exp:" + leftSide.getDenominator().getTerms().getFirst().getExponent());*/
                     break;
                 case MULTIPLY:
                     leftSide.multiply(term);

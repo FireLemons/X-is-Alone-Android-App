@@ -6,19 +6,19 @@ package xyz.smaeul.xisalone.expression;
 
 public class Term {
 
-    int coefficient;
-    int exponent;
+    long coefficient;
+    long exponent;
 
-    public Term(int coefficient, int exponent) {
+    public Term(long coefficient, long exponent) {
         this.coefficient = coefficient;
         this.exponent = exponent;
     }
 
-    public int getCoefficient() {
+    public long getCoefficient() {
         return coefficient;
     }
 
-    public int getExponent() {
+    public long getExponent() {
         return exponent;
     }
 }

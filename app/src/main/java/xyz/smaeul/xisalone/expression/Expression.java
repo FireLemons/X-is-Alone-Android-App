@@ -1,5 +1,7 @@
 package xyz.smaeul.xisalone.expression;
 
+import android.util.Log;
+
 /**
  * Created by Madi on 10/14/16.
  */
@@ -15,8 +17,7 @@ public class Expression {
 
     public Expression(Polynomial numerator) {
         this.numerator = numerator;
-        denominator = new Polynomial();
-        denominator.add(new Term(1, 0));
+        this.denominator = new Polynomial(new Term(1, 0));
     }
 
     public Polynomial getDenominator() {
@@ -40,20 +41,23 @@ public class Expression {
     }
 
     public void divide(Term t) {
-        denominator.multiply(t);
-        simplify();
+        Log.d("Numerator count", numerator.getNumberOfTerms()+"");
+        if(numerator.getNumberOfTerms() > 0){
+            denominator.multiply(t);
+            simplify();
+        }
     }
 
-    private static int gcd(int p, int q) {
+    private static long gcd(long p, long q) {
         while (q != 0) {
-            int temp = q;
+            long temp = q;
             q = p % q;
             p = temp;
         }
         return p;
     }
 
-    private static int min(int a, int b) {
+    private static long min(long a, long b) {
         return a <= b ? a : b;
     }
 
@@ -69,8 +73,8 @@ public class Expression {
     public void simplify() {
         if (numerator.getNumberOfTerms() > 0 && denominator.getNumberOfTerms() > 0) {
             // Simplify coefficients
-            int numerator_gcd = numerator.getTerms().getFirst().coefficient;
-            int denominator_gcd = denominator.getTerms().getFirst().coefficient;
+            long numerator_gcd = numerator.getTerms().getFirst().coefficient;
+            long denominator_gcd = denominator.getTerms().getFirst().coefficient;
 
             for (Term term : numerator.getTerms()) {
                 numerator_gcd = gcd(numerator_gcd, term.coefficient);
@@ -79,7 +83,7 @@ public class Expression {
                 denominator_gcd = gcd(denominator_gcd, term.coefficient);
             }
 
-            int gcd = gcd(numerator_gcd, denominator_gcd);
+            long gcd = gcd(numerator_gcd, denominator_gcd);
             gcd = Math.abs(gcd);
 
             if (gcd > 1) {
@@ -92,8 +96,8 @@ public class Expression {
             }
 
             //Simplify exponents
-            int numerator_min_exp = numerator.getTerms().getFirst().exponent;
-            int denominator_min_exp = denominator.getTerms().getFirst().exponent;
+            long numerator_min_exp = numerator.getTerms().getFirst().exponent;
+            long denominator_min_exp = denominator.getTerms().getFirst().exponent;
 
             for (Term term : numerator.getTerms()) {
                 numerator_min_exp = min(numerator_min_exp, term.exponent);
@@ -102,7 +106,7 @@ public class Expression {
                 denominator_min_exp = min(denominator_min_exp, term.exponent);
             }
 
-            int min_exp = min(numerator_min_exp, denominator_min_exp);
+            long min_exp = min(numerator_min_exp, denominator_min_exp);
 
             if (min_exp > 0) {
                 for (Term term : numerator.getTerms()) {

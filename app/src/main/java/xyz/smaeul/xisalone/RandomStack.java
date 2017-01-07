@@ -1,5 +1,7 @@
 package xyz.smaeul.xisalone;
 
+import android.util.Log;
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -21,15 +23,19 @@ public class RandomStack {
         rand = new Random();
         operators = new Stack<>();
         values = new Stack<>();
+        int k;
 
-        for (int i = 0; i < (n / 2) + 1; i++) {
-            int num = rand.nextInt(9 + (n % ((n / 2) + 1)));
+        for(k = 1; k * (k + 1) / 2 < n; k++);
+
+        for (int i = 0; i < k; i++) {
+            int num = rand.nextInt(9 + k - k * (k + 1) / 2 + n);//0;
             if (num > 0) {
                 values.push(new Term(num, 0));
             } else {
                 values.push(new Term(1, 1));
             }
             operators.push(Operator.values()[rand.nextInt(Operator.values().length)]);
+            Log.d("Operator", operators.lastElement().toString());
         }
     }
 
