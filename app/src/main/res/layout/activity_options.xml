@@ -13,11 +13,13 @@
 
     <CheckBox
 
+        android:button="@drawable/checkbox"
         android:id="@+id/checkbox_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/alt_controls"
         android:onClick="toggleControls"
-        style="@style/OptionsCheckBox"/>
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:textSize="6pt"/>
 
 </RelativeLayout>

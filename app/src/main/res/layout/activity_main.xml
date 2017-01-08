@@ -24,6 +24,7 @@
 
     <Button
         android:background="@color/navyHighlight"
+        android:onClick="openMenu"
         android:layout_below="@+id/newGame"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
