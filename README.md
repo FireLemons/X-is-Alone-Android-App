@@ -24,7 +24,12 @@ Shen Yang(shenyang64@gmail.com), Sai Kumar(saikovuri367@gmail.com), Christopher 
 ## Upcoming Features
 
 Persistent data
+    Autosave and Continue
+    Autosave options
 
 Main Menu
+    Continue
+        Loads save based on persistent data.
+
     Options
-        Alternate Control Scheme
+        Change Theme Colors

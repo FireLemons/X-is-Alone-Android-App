@@ -1,7 +1,8 @@
 <resources>
+    <string name="alt_controls">Alternate Controls</string>
+    <string name="alt_controls_description">Based on the center of the screen</string>
     <string name="app_name">X Is Alone</string>
     <string name="new_game">New Game</string>
     <string name="options">Options</string>
-    <string name="alt_controls">Alternate Controls</string>
-    <string name="alt_controls_description">Based on the center of the screen</string>
+    <string name="preference_file">x_is_alone</string>
 </resources>

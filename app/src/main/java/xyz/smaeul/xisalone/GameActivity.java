@@ -1,9 +1,14 @@
 package xyz.smaeul.xisalone;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,8 +24,8 @@ import xyz.smaeul.xisalone.expression.Term;
 public class GameActivity extends AppCompatActivity implements OnSwipeListener{
 
     private static final float radius = 100f;
-
-    private final TouchListener touchListener = new TouchListener(this, radius);
+    private SharedPreferences settings;
+    private TouchListener touchListener;
 
     private int difficulty = 1;
     private LinearLayout numberStack;
@@ -32,10 +37,19 @@ public class GameActivity extends AppCompatActivity implements OnSwipeListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settings = getSharedPreferences(getString(R.string.preference_file), MODE_PRIVATE);
+        touchListener = initalizeTouchListener(settings.getBoolean("controls", true));
         setContentView(R.layout.activity_game);
         findViewById(R.id.activity_game).setOnTouchListener(touchListener);
         numberStack = (LinearLayout) findViewById(R.id.number_stack);
         startGame();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+
+        super.onConfigurationChanged(newConfig);
+        touchListener.reCenter(getCenter());
     }
 
     @Override
@@ -77,6 +91,31 @@ public class GameActivity extends AppCompatActivity implements OnSwipeListener{
 
             clearPreview();
         }
+    }
+
+    private PointF getCenter(){
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        return new PointF((float)width / 2, (float)height / 2);
+    }
+
+    private TouchListener initalizeTouchListener(boolean controls){
+
+        if(controls){
+
+
+
+            return new TouchListener(this, radius, getCenter());
+        }else{
+
+            return new TouchListener(this, radius);
+        }
+
     }
 
     public void resetExpression() {
