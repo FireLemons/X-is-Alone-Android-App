@@ -28,9 +28,10 @@
 
     <View
         android:id="@+id/left_bar"
-        style="@style/Divider"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/anchor" />
+        android:layout_toLeftOf="@id/anchor"
+        android:layout_marginLeft="16dp"
+        style="@style/Divider"/>
 
     <TextView
         android:id="@+id/left_numerator"
@@ -39,6 +40,7 @@
         android:layout_above="@id/left_bar"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
         android:layout_toLeftOf="@id/anchor"/>
 
     <TextView
@@ -47,11 +49,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/left_bar"
+        android:layout_marginLeft="16dp"
         android:layout_toLeftOf="@id/anchor"/>
 
     <View
         android:id="@+id/right_bar"
         android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
         android:layout_toRightOf="@id/anchor"
         style="@style/Divider"/>
 
@@ -61,6 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:layout_toRightOf="@id/anchor"
         android:layout_width="wrap_content"/>
 
@@ -69,6 +74,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/right_bar"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:layout_toRightOf="@id/anchor"
         android:layout_width="wrap_content"/>
 
